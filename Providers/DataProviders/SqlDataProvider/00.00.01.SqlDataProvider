@@ -1,0 +1,86 @@
+﻿/************************************************************/
+/*****              SqlDataProvider                     *****/
+/*****                                                  *****/
+/*****                                                  *****/
+/***** Note: To manually execute this script you must   *****/
+/*****       perform a search and replace operation     *****/
+/*****       for {databaseOwner} and {objectQualifier}  *****/
+/*****                                                  *****/
+/************************************************************/
+
+
+
+/************************************************************/
+/*****              SqlDataProvider                     *****/
+/************************************************************/
+
+--/****** Object:  Table [dbo].[CardAndLinks_Items]    Script Date: 22/08/2022 11:08:41 PM ******/
+--SET ANSI_NULLS ON
+--GO
+
+--SET QUOTED_IDENTIFIER ON
+--GO
+
+--CREATE TABLE [dbo].[CardAndLinks_Items](
+--	[id] [int] IDENTITY(1,1) NOT NULL,
+--	[name] [nvarchar](50) NOT NULL,
+--	[SortOrder] [int] NOT NULL,
+--	[description] [nvarchar](1000) NOT NULL,
+--	[link] [nvarchar](max) NOT NULL,
+--	[imageFileID] [int] NOT NULL,
+--	[ModuleID] [int] NOT NULL,
+--	[isActive] [bit] NOT NULL,
+--	[isDeleted] [bit] NOT NULL,
+--	[insertDate] [datetime] NOT NULL,
+-- CONSTRAINT [PK_CardAndLinks_Items] PRIMARY KEY CLUSTERED 
+--(
+--	[id] ASC
+--)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+--) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+--GO
+
+--ALTER TABLE [dbo].[CardAndLinks_Items] ADD  CONSTRAINT [DF_CardAndLinks_Items_SortOrder]  DEFAULT ((10)) FOR [SortOrder]
+--GO
+
+--ALTER TABLE [dbo].[CardAndLinks_Items] ADD  CONSTRAINT [DF_CardAndLinks_Items_isActive_1]  DEFAULT ((1)) FOR [isActive]
+--GO
+
+--ALTER TABLE [dbo].[CardAndLinks_Items] ADD  CONSTRAINT [DF_CardAndLinks_Items_isActive]  DEFAULT ((0)) FOR [isDeleted]
+--GO
+
+--ALTER TABLE [dbo].[CardAndLinks_Items] ADD  CONSTRAINT [DF_CardAndLinks_Items_insertDate]  DEFAULT (getdate()) FOR [insertDate]
+--GO
+
+--CREATE PROCEDURE [dbo].[CardAndLinks_insertOrUpdateItems]
+--	-- Add the parameters for the stored procedure here
+--	@id	int	,
+--	 @name	nvarchar(256)	,
+--	@description	nvarchar(1000)	,	
+--	@imageFileID	int	,
+--      @ModuleId int,
+--	  @isActive bit,
+--	@SortOrder	int	,	
+--	@link nvarchar(max)
+--AS
+--BEGIN
+--	-- SET NOCOUNT ON added to prevent extra result sets from
+--	-- interfering with SELECT statements.
+--	SET NOCOUNT ON;
+
+--    -- Insert statements for procedure here
+--	IF EXISTS (SELECT * FROM [CardAndLinks_Items] WHERE [id]=@id)
+--		BEGIN
+--		 update [dbo].[CardAndLinks_Items]
+--		 set name= @name, description=@description,imageFileID= @imageFileID, SortOrder=@SortOrder, ModuleId=@ModuleId,isActive=@isActive,
+--		  link=@link
+--		 where id=  @id
+--		 select  @id
+--		END		
+--	ELSE 
+--		BEGIN
+--		  INSERT INTO [CardAndLinks_Items](name, description, imageFileID, SortOrder,  ModuleId,isActive, link)
+--		  VALUES ( @name, @description, @imageFileID, @SortOrder,  @ModuleId,@isActive, @link)
+--		  SELECT SCOPE_IDENTITY()
+--		END 
+--END
+
