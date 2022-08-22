@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="Mohammad.Modules.CardsAndLink.View" %>
 <div class="container">
     <asp:Panel ID="Panel_cmd" runat="server" Visible="false" Enabled="false">
-        <asp:LinkButton ID="btn_addRemoveStaff" Text="Manage Staff List" runat="server" CssClass="dnnPrimaryAction" OnClick="btn_addRemoveStaff_Click" ValidationGroup="cmd"></asp:LinkButton>
+        <asp:LinkButton ID="btn_addRemoveStaff" Text="Manage Cards List" runat="server" CssClass="dnnPrimaryAction" OnClick="btn_addRemoveStaff_Click" ValidationGroup="cmd"></asp:LinkButton>
          <asp:LinkButton ID="btn_previewStaff" Text="Preview" runat="server" CssClass="dnnSecondaryAction" OnClick="btn_previewStaff_Click" ValidationGroup="cmd"></asp:LinkButton>
     </asp:Panel>
 </div>
